@@ -1,23 +1,20 @@
 // ==UserScript==
 // @name         WME Template
-// @version      0.0.1
+// @version      0.0.2
 // @description  Template of the script for Waze Map Editor
 // @license      MIT License
 // @author       Anton Shevchuk
 // @namespace    https://greasyfork.org/users/227648-anton-shevchuk
 // @supportURL   https://github.com/AntonShevchuk/wme-template/issues
-// @match        https://www.waze.com/editor*
-// @match        https://www.waze.com/*/editor*
-// @match        https://beta.waze.com/editor*
-// @match        https://beta.waze.com/*/editor*
-// @exclude      https://www.waze.com/user/editor*
-// @exclude      https://beta.waze.com/user/editor*
+// @match        https://*.waze.com/editor*
+// @match        https://*.waze.com/*/editor*
+// @exclude      https://*.waze.com/user/editor*
 // @icon         https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://anton.shevchuk.name&size=64
 // @grant        none
 // @require      https://greasyfork.org/scripts/389765-common-utils/code/CommonUtils.js?version=1090053
 // @require      https://greasyfork.org/scripts/450160-wme-bootstrap/code/WME-Bootstrap.js?version=1090054
 // @require      https://greasyfork.org/scripts/450221-wme-base/code/WME-Base.js?version=1090055
-// @require      https://greasyfork.org/scripts/450320-wme-ui/code/WME-UI.js?version=1090056
+// @require      https://greasyfork.org/scripts/450320-wme-ui/code/WME-UI.js?version=1093989
 // ==/UserScript==
 
 /* jshint esversion: 8 */
@@ -90,8 +87,9 @@
   }
 
   const STYLE =
-    'button.waze-btn.template { border: 1px solid #ccc; } ' +
-    'button.waze-btn.template:hover { box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1), inset 0 0 100px 100px rgba(255, 255, 255, 0.3); } ' +
+    'button.waze-btn.template { background: #f2f4f7; border: 1px solid #ccc; margin: 2px; } ' +
+    'button.waze-btn.template:hover { background: #ffffff; transition: background-color 100ms linear; box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1), inset 0 0 100px 100px rgba(255, 255, 255, 0.3); } ' +
+    'button.waze-btn.template:focus { background: #f2f4f7; } ' +
     'p.template-info { border-top: 1px solid #ccc; color: #777; font-size: x-small; margin-top: 15px; padding-top: 10px; text-align: center; }'
 
   WMEUI.addTranslation(NAME, TRANSLATION)
@@ -174,8 +172,8 @@
             'settings-' + item,
             I18n.t(NAME).settings[item],
             I18n.t(NAME).settings[item],
-            event => this.settings.set(['settings', item], event.target.checked),
-            this.settings.get('settings', item)
+            event => this.settings.set([item], event.target.checked),
+            this.settings.get(item)
           )
         }
       }
@@ -370,6 +368,12 @@
     BUTTONS.C.callback = () => Instance.onButtonC()
 
     Instance.init(BUTTONS)
+
+    // create simple shortcut
+    WMEUI.addShortcut('Example', 'Some description', NAME, 'Title example', 'S+Q', () => alert('It works!'))
+
+    // rename shortcut section
+    WMEUIShortcut.setGroupTitle(NAME, I18n.t(NAME).title + '⛔️')
   })
 
 })()
