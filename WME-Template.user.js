@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WME Template
-// @version      0.0.2
+// @version      0.0.3
 // @description  Template of the script for Waze Map Editor
 // @license      MIT License
 // @author       Anton Shevchuk
