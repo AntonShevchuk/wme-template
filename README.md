@@ -5,7 +5,8 @@ Template of the GreasyFork script for Waze Map Editor
 
 * [Common Utils](https://github.com/AntonShevchuk/common.utils) – contains `SimpleCache`, `Settings` and `Tools` classes
 * [WME-Bootstrap](https://github.com/AntonShevchuk/wme-bootstrap) - trigger `jQuery.Event` for all major events on the page
-* [WME-Base](https://github.com/AntonShevchuk/wme-base) - contains `WME` class-helper and `WMEBase` – parent class for WME scripts
+* [WME](https://github.com/AntonShevchuk/wme) - contains `WME` class-helper
+* [WME-Base](https://github.com/AntonShevchuk/wme-base) - contains `WMEBase` – parent class for WME scripts
 * [WME-UI](https://github.com/AntonShevchuk/wme-ui) - contains set of the classes to simplify build UI for WME scripts
 
 
@@ -16,8 +17,9 @@ Template of the GreasyFork script for Waze Map Editor
 ```javascript
 // @require https://greasyfork.org/scripts/389765-common-utils/code/CommonUtils.js?version=1090053
 // @require https://greasyfork.org/scripts/450160-wme-bootstrap/code/WME-Bootstrap.js?version=1090054
-// @require https://greasyfork.org/scripts/450221-wme-base/code/WME-Base.js?version=1090055
-// @require https://greasyfork.org/scripts/450320-wme-ui/code/WME-UI.js?version=1090056
+// @require https://greasyfork.org/scripts/452563-wme/code/WME.js?version=1101598
+// @require https://greasyfork.org/scripts/450221-wme-base/code/WME-Base.js?version=1101617
+// @require https://greasyfork.org/scripts/450320-wme-ui/code/WME-UI.js?version=1101616
 ```
 
 ## Recommended structure
