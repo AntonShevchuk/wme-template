@@ -15,7 +15,7 @@
 // @require      https://greasyfork.org/scripts/450160-wme-bootstrap/code/WME-Bootstrap.js?version=1126584
 // @require      https://greasyfork.org/scripts/452563-wme/code/WME.js?version=1101598
 // @require      https://greasyfork.org/scripts/450221-wme-base/code/WME-Base.js?version=1101617
-// @require      https://greasyfork.org/scripts/450320-wme-ui/code/WME-UI.js?version=1110180
+// @require      https://greasyfork.org/scripts/450320-wme-ui/code/WME-UI.js?version=1127617
 // ==/UserScript==
 
 /* jshint esversion: 8 */
@@ -26,7 +26,7 @@
 /* global I18n */
 /* global OpenLayers */
 /* global WME, WMEBase */
-/* global WMEUI, WMEUIHelper, WMEUIHelperPanel, WMEUIHelperModal, WMEUIHelperTab */
+/* global WMEUI, WMEUIHelper, WMEUIHelperPanel, WMEUIHelperModal, WMEUIHelperTab, WMEUIShortcut */
 /* global Container, Settings, SimpleCache, Tools  */
 
 (function () {
