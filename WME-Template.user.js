@@ -15,7 +15,7 @@
 // @require      https://greasyfork.org/scripts/450160-wme-bootstrap/code/WME-Bootstrap.js?version=1128320
 // @require      https://greasyfork.org/scripts/452563-wme/code/WME.js?version=1101598
 // @require      https://greasyfork.org/scripts/450221-wme-base/code/WME-Base.js?version=1129908
-// @require      https://greasyfork.org/scripts/450320-wme-ui/code/WME-UI.js?version=1128560
+// @require      https://greasyfork.org/scripts/450320-wme-ui/code/WME-UI.js?version=1132279
 // ==/UserScript==
 
 /* jshint esversion: 8 */
@@ -145,9 +145,8 @@
       /** @type {WMEUIHelperTab} */
       this.tab = this.helper.createTab(
         I18n.t(this.name).title,
-        I18n.t(this.name).description,
         {
-          'icon': '<i class="w-icon panel-header-component-icon w-icon-polygon"></i>'
+          'icon': 'polygon'
         }
       )
 
@@ -170,7 +169,6 @@
         if (settings.hasOwnProperty(item)) {
           fieldset.addCheckbox(
             'settings-' + item,
-            I18n.t(NAME).settings[item],
             I18n.t(NAME).settings[item],
             event => this.settings.set([item], event.target.checked),
             this.settings.get(item)
