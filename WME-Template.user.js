@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WME Template
-// @version      0.1.1
+// @version      0.1.2
 // @description  Template of the script for Waze Map Editor
 // @license      MIT License
 // @author       Anton Shevchuk
@@ -12,8 +12,8 @@
 // @icon         https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://anton.shevchuk.name&size=64
 // @grant        none
 // @require      https://greasyfork.org/scripts/389765-common-utils/code/CommonUtils.js?version=1090053
-// @require      https://greasyfork.org/scripts/450160-wme-bootstrap/code/WME-Bootstrap.js?version=1135567
-// @require      https://greasyfork.org/scripts/452563-wme/code/WME.js?version=1101598
+// @require      https://greasyfork.org/scripts/450160-wme-bootstrap/code/WME-Bootstrap.js?version=1182738
+// @require      https://greasyfork.org/scripts/452563-wme/code/WME.js?version=1182695
 // @require      https://greasyfork.org/scripts/450221-wme-base/code/WME-Base.js?version=1137043
 // @require      https://greasyfork.org/scripts/450320-wme-ui/code/WME-UI.js?version=1137289
 // ==/UserScript==
