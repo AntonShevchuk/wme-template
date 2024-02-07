@@ -162,7 +162,7 @@
         ''
       )
 
-      // Setup options for script
+      // Setup options for the script
       let fieldset = this.helper.createFieldset(I18n.t(NAME).settings.title)
       let settings = this.settings.get()
       for (let item in settings) {
