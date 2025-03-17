@@ -15,7 +15,7 @@
 // @require      https://update.greasyfork.org/scripts/450160/1218867/WME-Bootstrap.js
 // @require      https://update.greasyfork.org/scripts/452563/1218878/WME.js
 // @require      https://update.greasyfork.org/scripts/450221/1137043/WME-Base.js
-// @require      https://update.greasyfork.org/scripts/450320/1555192/WME-UI.js
+// @require      https://update.greasyfork.org/scripts/450320/1555446/WME-UI.js
 // ==/UserScript==
 
 /* jshint esversion: 8 */
