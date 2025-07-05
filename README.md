@@ -12,7 +12,7 @@ Template of the GreasyFork script for Waze Map Editor
 
 ### Require libraries
 
-⚠️ Actual version of libraries see on the [Greasy Fork site](https://greasyfork.org/en/users/227648-anton-shevchuk)
+⚠️ Actual version of libraries sees on the [Greasy Fork site](https://greasyfork.org/en/users/227648-anton-shevchuk)
 
 ```javascript
 // @require https://greasyfork.org/scripts/389765-common-utils/code/CommonUtils.js?version=1090053
@@ -112,5 +112,7 @@ Template of the GreasyFork script for Waze Map Editor
 ```
 
 ## Links
-Author homepage: http://anton.shevchuk.name/  
+
+Author homepage: https://anton.shevchuk.name/  
+Author pet projects: https://hohli.com/  
 Script homepage: https://github.com/AntonShevchuk/wme-template  
