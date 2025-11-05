@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WME Template
-// @version      0.2.2
+// @version      0.3.0
 // @description  Template of the script for Waze Map Editor
 // @license      MIT License
 // @author       Anton Shevchuk
@@ -12,21 +12,19 @@
 // @icon         https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://anton.shevchuk.name&size=64
 // @grant        none
 // @require      https://update.greasyfork.org/scripts/389765/1090053/CommonUtils.js
-// @require      https://update.greasyfork.org/scripts/450160/1619452/WME-Bootstrap.js
-// @require      https://update.greasyfork.org/scripts/452563/1218878/WME.js
-// @require      https://update.greasyfork.org/scripts/450221/1137043/WME-Base.js
-// @require      https://update.greasyfork.org/scripts/450320/1555446/WME-UI.js
+// @require      https://update.greasyfork.org/scripts/450160/1681948/WME-Bootstrap.js
+// @require      https://update.greasyfork.org/scripts/450221/1681856/WME-Base.js
+// @require      https://update.greasyfork.org/scripts/450320/1688694/WME-UI.js
 // ==/UserScript==
 
 /* jshint esversion: 8 */
 
 /* global require */
 /* global $, jQuery */
-/* global W */
 /* global I18n */
 /* global OpenLayers */
-/* global WME, WMEBase */
-/* global WMEUI, WMEUIHelper, WMEUIHelperPanel, WMEUIHelperModal, WMEUIHelperTab, WMEUIShortcut, WMEUIHelperFieldset */
+/* global WMEBase */
+/* global WMEUI, WMEUIHelper, WMEUIHelperPanel, WMEUIHelperModal, WMEUIHelperTab, WMEUIHelperFieldset */
 /* global Container, Settings, SimpleCache, Tools  */
 
 (function () {
@@ -100,17 +98,17 @@
     A: {
       title: I18n.t(NAME).buttons.A,
       description: I18n.t(NAME).buttons.A,
-      shortcut: 'S+A',
+      shortcut: 'S+1',
     },
     B: {
       title: I18n.t(NAME).buttons.B,
       description: I18n.t(NAME).buttons.B,
-      shortcut: 'S+B',
+      shortcut: 'S+2',
     },
     C: {
       title: I18n.t(NAME).buttons.C,
       description: I18n.t(NAME).buttons.C,
-      shortcut: 'S+C',
+      shortcut: 'S+3',
     }
   }
 
@@ -146,6 +144,7 @@
       this.tab = this.helper.createTab(
         I18n.t(this.name).title,
         {
+          'sidebar': this.wmeSDK.Sidebar,
           'icon': 'polygon'
         }
       )
@@ -154,6 +153,24 @@
       /** @type {WMEUIHelperFieldset} */
       let fieldsetForButtons = this.helper.createFieldset(I18n.t(NAME).buttons.title)
       fieldsetForButtons.addButtons(buttons)
+
+      for (let n in buttons) {
+        if (buttons[n].shortcut) {
+          let shortcut = {
+            callback: buttons[n].callback,
+            description: buttons[n].description,
+            shortcutId: this.id + '-' + n,
+            shortcutKeys: buttons[n].shortcut,
+          };
+
+          if (!this.wmeSDK.Shortcuts.areShortcutKeysInUse({ shortcutKeys: buttons[n].shortcut })) {
+            this.wmeSDK.Shortcuts.createShortcut(shortcut);
+          } else {
+            this.log('Shortcut already in use')
+          }
+        }
+      }
+
       this.tab.addElement(fieldsetForButtons)
 
       // Setup custom text
@@ -358,11 +375,14 @@
 
     Instance.init(BUTTONS)
 
-    // create simple shortcut
-    WMEUI.addShortcut('Example', 'Some description', NAME, 'Title example', 'S+Q', () => alert('It works!'))
+    let shortcut = {
+      callback: () => alert('It works!'),
+      description: "Some description",
+      shortcutId: "wme-template-shortcut",
+      shortcutKeys: "S+Q",
+    };
 
-    // rename shortcut section
-    WMEUIShortcut.setGroupTitle(NAME, I18n.t(NAME).title + '⛔️')
+    Instance.wmeSDK.Shortcuts.createShortcut(shortcut);
   })
 
 })()
