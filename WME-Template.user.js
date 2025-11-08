@@ -12,8 +12,8 @@
 // @icon         https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://anton.shevchuk.name&size=64
 // @grant        none
 // @require      https://update.greasyfork.org/scripts/389765/1090053/CommonUtils.js
-// @require      https://update.greasyfork.org/scripts/450160/1681948/WME-Bootstrap.js
-// @require      https://update.greasyfork.org/scripts/450221/1681856/WME-Base.js
+// @require      https://update.greasyfork.org/scripts/450160/1691572/WME-Bootstrap.js
+// @require      https://update.greasyfork.org/scripts/450221/1691071/WME-Base.js
 // @require      https://update.greasyfork.org/scripts/450320/1688694/WME-UI.js
 // ==/UserScript==
 
@@ -22,10 +22,10 @@
 /* global require */
 /* global $, jQuery */
 /* global I18n */
-/* global OpenLayers */
 /* global WMEBase */
 /* global WMEUI, WMEUIHelper, WMEUIHelperPanel, WMEUIHelperModal, WMEUIHelperTab, WMEUIHelperFieldset */
 /* global Container, Settings, SimpleCache, Tools  */
+/* global Node$1, Segment, Venue, VenueAddress, WmeSDK */
 
 (function () {
   'use strict'
@@ -216,7 +216,7 @@
      * Handler for `segment.wme` event
      * @param {jQuery.Event} event
      * @param {HTMLElement} element
-     * @param {W.model} model
+     * @param {Segment} model
      * @return {void}
      */
     onSegment (event, element, model) {
@@ -228,7 +228,7 @@
      * Handler for `segments.wme` event
      * @param {jQuery.Event} event
      * @param {HTMLElement} element
-     * @param {Array} models
+     * @param {Segment[]} models
      * @return {void}
      */
     onSegments (event, element, models) {
@@ -240,7 +240,7 @@
      * Handler for `node.wme` event
      * @param {jQuery.Event} event
      * @param {HTMLElement} element
-     * @param {W.model} model
+     * @param {Node$1} model
      * @return {void}
      */
     onNode (event, element, model) {
@@ -252,7 +252,7 @@
      * Handler for `nodes.wme` event
      * @param {jQuery.Event} event
      * @param {HTMLElement} element
-     * @param {Array} models
+     * @param {Node$1[]} models
      * @return {void}
      */
     onNodes (event, element, models) {
@@ -263,7 +263,7 @@
      * Handler for `venue.wme` event
      * @param {jQuery.Event} event
      * @param {HTMLElement} element
-     * @param {W.model} model
+     * @param {Venue} model
      * @return {void}
      */
     onVenue (event, element, model) {
@@ -275,7 +275,7 @@
      * Handler for `venues.wme` event
      * @param {jQuery.Event} event
      * @param {HTMLElement} element
-     * @param {Array} models
+     * @param {Venue[]} models
      * @return {void}
      */
     onVenues (event, element, models) {
@@ -287,7 +287,7 @@
      * Handler for `point.wme` event
      * @param {jQuery.Event} event
      * @param {HTMLElement} element
-     * @param {W.model} model
+     * @param {Venue} model
      * @return {void}
      */
     onPoint (event, element, model) {
@@ -298,7 +298,7 @@
      * Handler for `place.wme` event
      * @param {jQuery.Event} event
      * @param {HTMLElement} element
-     * @param {W.model} model
+     * @param {Venue} model
      * @return {void}
      */
     onPlace (event, element, model) {
@@ -309,7 +309,7 @@
      * Handler for `residential.wme` event
      * @param {jQuery.Event} event
      * @param {HTMLElement} element
-     * @param {W.model} model
+     * @param {Venue} model
      * @return {void}
      */
     onResidential (event, element, model) {
