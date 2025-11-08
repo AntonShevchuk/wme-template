@@ -115,4 +115,5 @@ Template of the GreasyFork script for Waze Map Editor
 
 Author homepage: https://anton.shevchuk.name/  
 Author pet projects: https://hohli.com/  
+Support author: https://donate.hohli.com/  
 Script homepage: https://github.com/AntonShevchuk/wme-template  
