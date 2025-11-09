@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WME Template
-// @version      0.3.0
+// @version      0.3.1
 // @description  Template of the script for Waze Map Editor
 // @license      MIT License
 // @author       Anton Shevchuk
@@ -163,11 +163,11 @@
             shortcutKeys: buttons[n].shortcut,
           };
 
-          if (!this.wmeSDK.Shortcuts.areShortcutKeysInUse({ shortcutKeys: buttons[n].shortcut })) {
-            this.wmeSDK.Shortcuts.createShortcut(shortcut);
-          } else {
+          if (this.wmeSDK.Shortcuts.areShortcutKeysInUse({ shortcutKeys: buttons[n].shortcut })) {
             this.log('Shortcut already in use')
+            shortcut.shortcutKeys = null
           }
+          this.wmeSDK.Shortcuts.createShortcut(shortcut);
         }
       }
 
