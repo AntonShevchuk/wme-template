@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WME Template
-// @version      0.4.0
+// @version      0.5.0
 // @description  Template of the script for Waze Map Editor
 // @license      MIT License
 // @author       Anton Shevchuk
@@ -12,7 +12,7 @@
 // @icon         https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://anton.shevchuk.name&size=64
 // @grant        none
 // @require      https://update.greasyfork.org/scripts/389765/1090053/CommonUtils.js
-// @require      https://update.greasyfork.org/scripts/450160/1701700/WME-Bootstrap.js
+// @require      https://update.greasyfork.org/scripts/450160/1704233/WME-Bootstrap.js
 // @require      https://update.greasyfork.org/scripts/450221/1691071/WME-Base.js
 // @require      https://update.greasyfork.org/scripts/450320/1688694/WME-UI.js
 // ==/UserScript==
@@ -366,23 +366,41 @@
     }
   }
 
-  $(document).on('bootstrap.wme', () => {
-    let Instance = new Template(NAME, SETTINGS)
+  function logger (event, element, model) {
+    console.log('HTMLElement', element)
+    console.log('DataModel', model)
+  }
+  
+  $(document)
+    .on('bootstrap.wme', () => {
+      let Instance = new Template(NAME, SETTINGS)
 
-    BUTTONS.A.callback = () => Instance.onButtonA()
-    BUTTONS.B.callback = () => Instance.onButtonB()
-    BUTTONS.C.callback = () => Instance.onButtonC()
+      BUTTONS.A.callback = () => Instance.onButtonA()
+      BUTTONS.B.callback = () => Instance.onButtonB()
+      BUTTONS.C.callback = () => Instance.onButtonC()
 
-    Instance.init(BUTTONS)
+      Instance.init(BUTTONS)
 
-    let shortcut = {
-      callback: () => alert('It works!'),
-      description: "Some description",
-      shortcutId: "wme-template-shortcut",
-      shortcutKeys: "S+Q",
-    };
+      let shortcut = {
+        callback: () => alert('It works!'),
+        description: "Some description",
+        shortcutId: "wme-template-shortcut",
+        shortcutKeys: "S+Q",
+      };
 
-    Instance.wmeSDK.Shortcuts.createShortcut(shortcut);
-  })
+      Instance.wmeSDK.Shortcuts.createShortcut(shortcut);
+    })
+    .on('camera.wme', logger)
+    .on('city.wme', logger)
+    .on('comment.wme', logger)
+    .on('segment.wme', logger)
+    .on('segments.wme', logger)
+    .on('node.wme', logger)
+    .on('nodes.wme', logger)
+    .on('venue.wme', logger)
+    .on('venues.wme', logger)
+    .on('point.wme', logger)
+    .on('place.wme', logger)
+    .on('residential.wme', logger)
 
 })()
