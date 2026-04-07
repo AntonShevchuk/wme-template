@@ -63,16 +63,17 @@ export class Template extends WMEBase {
     // Setup options for the script
     let fieldset = this.helper.createFieldset(I18n.t(NAME).settings.title)
     let settings = this.settings.get()
+    let checkboxes: Record<string, any> = {}
     for (let item in settings) {
       if (settings.hasOwnProperty(item)) {
-        fieldset.addCheckbox(
-          'settings-' + item,
-          I18n.t(NAME).settings[item],
-          event => this.settings.set([item], event.target.checked),
-          this.settings.get(item)
-        )
+        checkboxes['settings-' + item] = {
+          title: I18n.t(NAME).settings[item],
+          callback: (event: any) => this.settings.set([item], event.target.checked),
+          checked: this.settings.get(item),
+        }
       }
     }
+    fieldset.addCheckboxes(checkboxes)
     this.tab.addElement(fieldset)
     this.tab.addText(
       'info',

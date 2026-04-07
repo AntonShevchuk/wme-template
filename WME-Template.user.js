@@ -142,11 +142,17 @@
             // Setup options for the script
             let fieldset = this.helper.createFieldset(I18n.t(NAME).settings.title);
             let settings = this.settings.get();
+            let checkboxes = {};
             for (let item in settings) {
                 if (settings.hasOwnProperty(item)) {
-                    fieldset.addCheckbox('settings-' + item, I18n.t(NAME).settings[item], event => this.settings.set([item], event.target.checked), this.settings.get(item));
+                    checkboxes['settings-' + item] = {
+                        title: I18n.t(NAME).settings[item],
+                        callback: (event) => this.settings.set([item], event.target.checked),
+                        checked: this.settings.get(item),
+                    };
                 }
             }
+            fieldset.addCheckboxes(checkboxes);
             this.tab.addElement(fieldset);
             this.tab.addText('info', '<a href="' + GM_info.scriptUpdateURL + '">' + GM_info.script.name + '</a> ' + GM_info.script.version);
             // Inject custom HTML to container in the WME interface
