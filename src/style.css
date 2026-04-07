@@ -1,0 +1,24 @@
+button.waze-btn.template {
+  background: #f2f4f7;
+  border: 1px solid #ccc;
+  margin: 2px;
+}
+
+button.waze-btn.template:hover {
+  background: #ffffff;
+  transition: background-color 100ms linear;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1), inset 0 0 100px 100px rgba(255, 255, 255, 0.3);
+}
+
+button.waze-btn.template:focus {
+  background: #f2f4f7;
+}
+
+p.template-info {
+  border-top: 1px solid #ccc;
+  color: #777;
+  font-size: x-small;
+  margin-top: 15px;
+  padding-top: 10px;
+  text-align: center;
+}
