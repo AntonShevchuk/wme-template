@@ -1,19 +1,19 @@
 import { NAME } from './translations'
+import type { Segment, Venue } from 'wme-sdk-typings'
 
 export class Template extends WMEBase {
   panel: WMEUIHelperPanel
   modal: WMEUIHelperModal
   tab: WMEUIHelperTab
 
-  constructor (name, settings) {
+  constructor (name: string, settings: any) {
     super(name, settings)
   }
 
   /**
    * Initial UI elements
-   * @param {Object} buttons
    */
-  init (buttons) {
+  init (buttons: Record<string, any>) {
     this.panel = this.helper.createPanel(I18n.t(this.name).title)
     this.panel.addButtons(buttons)
 
@@ -41,10 +41,7 @@ export class Template extends WMEBase {
     this.tab.addElement(fieldsetForButtons)
 
     // Setup custom text
-    this.tab.addText(
-      'description',
-      ''
-    )
+    this.tab.addText('description', '')
 
     // Setup options for the script
     let fieldset = this.helper.createFieldset(I18n.t(NAME).settings.title)
@@ -70,149 +67,70 @@ export class Template extends WMEBase {
     this.tab.inject()
   }
 
-  /**
-   * Handler for `none.wme` event
-   * @param {jQuery.Event} event
-   * @return {void}
-   */
-  onNone (event) {
+  onNone (event: JQuery.Event) {
     this.log('No select')
-    this.clearModal(event)
+    this.clearModal()
   }
 
-  /**
-   * Handler for `segment.wme` event
-   * @param {jQuery.Event} event
-   * @param {HTMLElement} element
-   * @param {Segment} model
-   * @return {void}
-   */
-  onSegment (event, element, model) {
+  onSegment (event: JQuery.Event, element: HTMLElement, model: Segment) {
     this.log('Selected one segment')
-    this.createModal(event, element, [model])
+    this.createModal()
   }
 
-  /**
-   * Handler for `segments.wme` event
-   * @param {jQuery.Event} event
-   * @param {HTMLElement} element
-   * @param {Segment[]} models
-   * @return {void}
-   */
-  onSegments (event, element, models) {
+  onSegments (event: JQuery.Event, element: HTMLElement, models: Segment[]) {
     this.log('Selected some segments')
-    this.createModal(event, element, models)
+    this.createModal()
   }
 
-  /**
-   * Handler for `node.wme` event
-   * @param {jQuery.Event} event
-   * @param {HTMLElement} element
-   * @param {Node$1} model
-   * @return {void}
-   */
-  onNode (event, element, model) {
+  onNode (event: JQuery.Event, element: HTMLElement, model: WMENode) {
     this.log('Selected one node')
-    this.createPanel(event, element, [model])
+    this.createPanel(element)
   }
 
-  /**
-   * Handler for `nodes.wme` event
-   * @param {jQuery.Event} event
-   * @param {HTMLElement} element
-   * @param {Node$1[]} models
-   * @return {void}
-   */
-  onNodes (event, element, models) {
-    this.log('Selected some nodes, doesn\'t work')
+  onNodes (event: JQuery.Event, element: HTMLElement, models: WMENode[]) {
+    this.log('Selected some nodes')
   }
 
-  /**
-   * Handler for `venue.wme` event
-   * @param {jQuery.Event} event
-   * @param {HTMLElement} element
-   * @param {Venue} model
-   * @return {void}
-   */
-  onVenue (event, element, model) {
+  onVenue (event: JQuery.Event, element: HTMLElement, model: Venue) {
     this.log('Selected one venue')
-    this.createPanel(event, element, [model])
+    this.createPanel(element)
   }
 
-  /**
-   * Handler for `venues.wme` event
-   * @param {jQuery.Event} event
-   * @param {HTMLElement} element
-   * @param {Venue[]} models
-   * @return {void}
-   */
-  onVenues (event, element, models) {
+  onVenues (event: JQuery.Event, element: HTMLElement, models: Venue[]) {
     this.log('Selected some venues')
-    this.createPanel(event, element, models)
+    this.createPanel(element)
   }
 
-  /**
-   * Handler for `point.wme` event
-   * @param {jQuery.Event} event
-   * @param {HTMLElement} element
-   * @param {Venue} model
-   * @return {void}
-   */
-  onPoint (event, element, model) {
+  onPoint (event: JQuery.Event, element: HTMLElement, model: Venue) {
     this.log('Selected a point')
   }
 
-  /**
-   * Handler for `place.wme` event
-   * @param {jQuery.Event} event
-   * @param {HTMLElement} element
-   * @param {Venue} model
-   * @return {void}
-   */
-  onPlace (event, element, model) {
+  onPlace (event: JQuery.Event, element: HTMLElement, model: Venue) {
     this.log('Selected a place')
   }
 
-  /**
-   * Handler for `residential.wme` event
-   * @param {jQuery.Event} event
-   * @param {HTMLElement} element
-   * @param {Venue} model
-   * @return {void}
-   */
-  onResidential (event, element, model) {
+  onResidential (event: JQuery.Event, element: HTMLElement, model: Venue) {
     this.log('Selected a residential')
   }
 
   /**
-   * Create panel with buttons
-   * @param {jQuery.Event} event
-   * @param {HTMLElement} element
-   * @param {Array} models
+   * Show panel with buttons in the sidebar
    */
-  createPanel (event, element, models) {
-    // Inject custom HTML to the current sidebar
-    // It can be #node-edit-general or #segment-edit-general or #venue-edit-general or #mergeVenuesCollection
+  createPanel (element: HTMLElement) {
     element.prepend(this.panel.html())
   }
 
   /**
-   * Create modal with buttons
-   * @param {jQuery.Event} event
-   * @param {HTMLElement} element
-   * @param {Array} models
+   * Show modal with buttons
    */
-  createModal (event, element, models) {
-    // Inject custom HTML to container in the WME interface
+  createModal () {
     this.modal.inject()
   }
 
   /**
    * Close modal
-   * @param {jQuery.Event} event
    */
-  clearModal (event) {
-    // Remove custom HTML
+  clearModal () {
     this.modal.html().remove()
   }
 

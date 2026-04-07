@@ -106,7 +106,6 @@
         }
         /**
          * Initial UI elements
-         * @param {Object} buttons
          */
         init(buttons) {
             this.panel = this.helper.createPanel(I18n.t(this.name).title);
@@ -147,137 +146,58 @@
             // Inject custom HTML to container in the WME interface
             this.tab.inject();
         }
-        /**
-         * Handler for `none.wme` event
-         * @param {jQuery.Event} event
-         * @return {void}
-         */
         onNone(event) {
             this.log('No select');
-            this.clearModal(event);
+            this.clearModal();
         }
-        /**
-         * Handler for `segment.wme` event
-         * @param {jQuery.Event} event
-         * @param {HTMLElement} element
-         * @param {Segment} model
-         * @return {void}
-         */
         onSegment(event, element, model) {
             this.log('Selected one segment');
-            this.createModal(event, element, [model]);
+            this.createModal();
         }
-        /**
-         * Handler for `segments.wme` event
-         * @param {jQuery.Event} event
-         * @param {HTMLElement} element
-         * @param {Segment[]} models
-         * @return {void}
-         */
         onSegments(event, element, models) {
             this.log('Selected some segments');
-            this.createModal(event, element, models);
+            this.createModal();
         }
-        /**
-         * Handler for `node.wme` event
-         * @param {jQuery.Event} event
-         * @param {HTMLElement} element
-         * @param {Node$1} model
-         * @return {void}
-         */
         onNode(event, element, model) {
             this.log('Selected one node');
-            this.createPanel(event, element, [model]);
+            this.createPanel(element);
         }
-        /**
-         * Handler for `nodes.wme` event
-         * @param {jQuery.Event} event
-         * @param {HTMLElement} element
-         * @param {Node$1[]} models
-         * @return {void}
-         */
         onNodes(event, element, models) {
-            this.log('Selected some nodes, doesn\'t work');
+            this.log('Selected some nodes');
         }
-        /**
-         * Handler for `venue.wme` event
-         * @param {jQuery.Event} event
-         * @param {HTMLElement} element
-         * @param {Venue} model
-         * @return {void}
-         */
         onVenue(event, element, model) {
             this.log('Selected one venue');
-            this.createPanel(event, element, [model]);
+            this.createPanel(element);
         }
-        /**
-         * Handler for `venues.wme` event
-         * @param {jQuery.Event} event
-         * @param {HTMLElement} element
-         * @param {Venue[]} models
-         * @return {void}
-         */
         onVenues(event, element, models) {
             this.log('Selected some venues');
-            this.createPanel(event, element, models);
+            this.createPanel(element);
         }
-        /**
-         * Handler for `point.wme` event
-         * @param {jQuery.Event} event
-         * @param {HTMLElement} element
-         * @param {Venue} model
-         * @return {void}
-         */
         onPoint(event, element, model) {
             this.log('Selected a point');
         }
-        /**
-         * Handler for `place.wme` event
-         * @param {jQuery.Event} event
-         * @param {HTMLElement} element
-         * @param {Venue} model
-         * @return {void}
-         */
         onPlace(event, element, model) {
             this.log('Selected a place');
         }
-        /**
-         * Handler for `residential.wme` event
-         * @param {jQuery.Event} event
-         * @param {HTMLElement} element
-         * @param {Venue} model
-         * @return {void}
-         */
         onResidential(event, element, model) {
             this.log('Selected a residential');
         }
         /**
-         * Create panel with buttons
-         * @param {jQuery.Event} event
-         * @param {HTMLElement} element
-         * @param {Array} models
+         * Show panel with buttons in the sidebar
          */
-        createPanel(event, element, models) {
-            // Inject custom HTML to the current sidebar
-            // It can be #node-edit-general or #segment-edit-general or #venue-edit-general or #mergeVenuesCollection
+        createPanel(element) {
             element.prepend(this.panel.html());
         }
         /**
-         * Create modal with buttons
-         * @param {jQuery.Event} event
-         * @param {HTMLElement} element
-         * @param {Array} models
+         * Show modal with buttons
          */
-        createModal(event, element, models) {
-            // Inject custom HTML to container in the WME interface
+        createModal() {
             this.modal.inject();
         }
         /**
          * Close modal
-         * @param {jQuery.Event} event
          */
-        clearModal(event) {
-            // Remove custom HTML
+        clearModal() {
             this.modal.html().remove();
         }
         onButtonA() {
