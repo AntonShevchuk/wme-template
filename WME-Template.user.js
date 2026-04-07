@@ -109,7 +109,6 @@
          * @param {Object} buttons
          */
         init(buttons) {
-            this.helper = new WMEUIHelper(this.name);
             this.panel = this.helper.createPanel(I18n.t(this.name).title);
             this.panel.addButtons(buttons);
             this.modal = this.helper.createModal(I18n.t(this.name).title);
@@ -123,17 +122,7 @@
             fieldsetForButtons.addButtons(buttons);
             for (let n in buttons) {
                 if (buttons[n].shortcut) {
-                    let shortcut = {
-                        callback: buttons[n].callback,
-                        description: buttons[n].description,
-                        shortcutId: this.id + '-' + n,
-                        shortcutKeys: buttons[n].shortcut,
-                    };
-                    if (this.wmeSDK.Shortcuts.areShortcutKeysInUse({ shortcutKeys: buttons[n].shortcut })) {
-                        this.log('Shortcut already in use');
-                        shortcut.shortcutKeys = null;
-                    }
-                    this.wmeSDK.Shortcuts.createShortcut(shortcut);
+                    this.createShortcut(n, buttons[n].description, buttons[n].shortcut, buttons[n].callback);
                 }
             }
             this.tab.addElement(fieldsetForButtons);
