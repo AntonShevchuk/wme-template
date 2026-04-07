@@ -15,12 +15,21 @@ Template of the GreasyFork script for Waze Map Editor
 ⚠️ Actual version of libraries sees on the [Greasy Fork site](https://greasyfork.org/en/users/227648-anton-shevchuk)
 
 ```javascript
-// @require https://greasyfork.org/scripts/389765-common-utils/code/CommonUtils.js?version=1090053
-// @require https://greasyfork.org/scripts/450160-wme-bootstrap/code/WME-Bootstrap.js?version=1090054
-// @require https://greasyfork.org/scripts/452563-wme/code/WME.js?version=1101598
-// @require https://greasyfork.org/scripts/450221-wme-base/code/WME-Base.js?version=1101617
-// @require https://greasyfork.org/scripts/450320-wme-ui/code/WME-UI.js?version=1101616
+// @require https://update.greasyfork.org/scripts/389765/1785927/CommonUtils.js
+// @require https://update.greasyfork.org/scripts/450160/1785943/WME-Bootstrap.js
+// @require https://update.greasyfork.org/scripts/450221/1785960/WME-Base.js
+// @require https://update.greasyfork.org/scripts/450320/1785964/WME-UI.js
 ```
+
+## Development
+
+```bash
+npm install
+npm run build    # build once
+npm run watch    # rebuild on changes
+```
+
+Source is in `src/` (TypeScript), output is `WME-Template.user.js` (root directory).
 
 ## Recommended structure
 
