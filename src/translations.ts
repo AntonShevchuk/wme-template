@@ -1,61 +1,100 @@
-// Script name, uses as unique index
+/**
+ * Script name — used as a unique identifier for translations, settings, and shortcuts
+ */
 export const NAME = 'Template'
 
-// Translations
+/**
+ * Translations — English is required, other languages are optional
+ * Access via WMEUI.t(NAME).key
+ */
 export const TRANSLATION = {
   'en': {
     title: 'WME Template',
-    description: 'Example of the script for Waze Map Editor',
+    description: 'A comprehensive template for WME userscripts',
+    help: 'Use <strong>keyboard shortcuts</strong> or buttons to apply actions',
     buttons: {
-      title: 'Buttons',
-      A: 'Button A',
-      B: 'Button B',
-      C: 'Button C',
+      title: 'Actions',
+      simplify: 'Simplify',
+      straighten: 'Straighten',
+      info: 'Info',
     },
     settings: {
       title: 'Settings',
-      A: 'Flag A',
-      B: 'Flag B',
-      C: 'Flag C',
+      autoSave: 'Auto-save changes',
+      showNotifications: 'Show notifications',
+      debugMode: 'Debug mode',
+    },
+    ranges: {
+      title: 'Parameters',
+      tolerance: 'Tolerance',
+      radius: 'Search radius (m)',
+    },
+    layers: {
+      title: 'Layers',
+      highlights: 'Highlight segments',
     },
   },
   'uk': {
-    title: 'WME Template',
-    description: 'Приклад скрипта для редактора карт Waze',
+    title: 'WME Шаблон',
+    description: 'Комплексний шаблон для скриптів WME',
+    help: 'Використовуйте <strong>гарячі клавіші</strong> або кнопки для застосування дій',
     buttons: {
-      title: 'Кнопки',
-      A: 'Кнопка A',
-      B: 'Кнопка B',
-      C: 'Кнопка C',
+      title: 'Дії',
+      simplify: 'Спростити',
+      straighten: 'Вирівняти',
+      info: 'Інфо',
     },
     settings: {
       title: 'Налаштування',
-      A: 'Опція A',
-      B: 'Опція B',
-      C: 'Опція C',
+      autoSave: 'Автозбереження змін',
+      showNotifications: 'Показувати сповіщення',
+      debugMode: 'Режим налагодження',
+    },
+    ranges: {
+      title: 'Параметри',
+      tolerance: 'Допуск',
+      radius: 'Радіус пошуку (м)',
+    },
+    layers: {
+      title: 'Шари',
+      highlights: 'Підсвітка сегментів',
     },
   },
   'ru': {
-    title: 'WME Template',
-    description: 'Пример скрипта для редактора карт Waze',
+    title: 'WME Шаблон',
+    description: 'Комплексный шаблон для скриптов WME',
+    help: 'Используйте <strong>комбинации клавиш</strong> или кнопки для применения действий',
     buttons: {
-      title: 'Кнопки',
-      A: 'Кнопка A',
-      B: 'Кнопка B',
-      C: 'Кнопка C',
+      title: 'Действия',
+      simplify: 'Упростить',
+      straighten: 'Выровнять',
+      info: 'Инфо',
     },
     settings: {
       title: 'Настройки',
-      A: 'Опция A',
-      B: 'Опция B',
-      C: 'Опция C',
+      autoSave: 'Автосохранение изменений',
+      showNotifications: 'Показывать уведомления',
+      debugMode: 'Режим отладки',
     },
-  }
+    ranges: {
+      title: 'Параметры',
+      tolerance: 'Допуск',
+      radius: 'Радиус поиска (м)',
+    },
+    layers: {
+      title: 'Слои',
+      highlights: 'Подсветка сегментов',
+    },
+  },
 }
 
-// Default settings
+/**
+ * Default settings — persisted to localStorage via Settings class
+ */
 export const SETTINGS = {
-  A: true,
-  B: false,
-  C: false,
+  autoSave: true,
+  showNotifications: false,
+  debugMode: false,
+  tolerance: 5,
+  radius: 200,
 }
