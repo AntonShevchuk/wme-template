@@ -1,4 +1,4 @@
-import { NAME } from './translations'
+import { NAME } from './name'
 import type { Segment, Venue } from 'wme-sdk-typings'
 
 /**
