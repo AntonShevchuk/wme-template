@@ -9,7 +9,7 @@ const banner = fs.readFileSync('./src/meta.ts', 'utf8')
 export default {
   input: 'src/index.ts',
   output: {
-    file: 'WME-Template.user.js',
+    file: 'dist/WME-Template.user.js',
     format: 'iife',
     banner,
   },
