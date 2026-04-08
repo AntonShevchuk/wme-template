@@ -14,14 +14,14 @@ export class Template extends WMEBase {
    * Initial UI elements
    */
   init (buttons: Record<string, any>) {
-    this.panel = this.helper.createPanel(I18n.t(this.name).title)
+    this.panel = this.helper.createPanel(WMEUI.t(NAME).title)
     this.panel.addButtons(buttons)
 
-    this.modal = this.helper.createModal(I18n.t(this.name).title)
+    this.modal = this.helper.createModal(WMEUI.t(NAME).title)
     this.modal.addButtons(buttons)
 
     this.tab = this.helper.createTab(
-      I18n.t(this.name).title,
+      WMEUI.t(NAME).title,
       {
         'sidebar': this.wmeSDK.Sidebar,
         'icon': 'polygon'
@@ -29,7 +29,7 @@ export class Template extends WMEBase {
     )
 
     // Setup buttons set
-    let fieldsetForButtons = this.helper.createFieldset(I18n.t(NAME).buttons.title)
+    let fieldsetForButtons = this.helper.createFieldset(WMEUI.t(NAME).buttons.title)
     fieldsetForButtons.addButtons(buttons)
 
     for (let n in buttons) {
@@ -40,17 +40,17 @@ export class Template extends WMEBase {
 
     this.tab.addElement(fieldsetForButtons)
 
-    // Setup custom text
+    // Set up custom text
     this.tab.addText('description', '')
 
     // Setup options for the script
-    let fieldset = this.helper.createFieldset(I18n.t(NAME).settings.title)
+    let fieldset = this.helper.createFieldset(WMEUI.t(NAME).settings.title)
     let settings = this.settings.get()
     let checkboxes: Record<string, any> = {}
     for (let item in settings) {
       if (settings.hasOwnProperty(item)) {
         checkboxes['settings-' + item] = {
-          title: I18n.t(NAME).settings[item],
+          title: WMEUI.t(NAME).settings[item],
           callback: (event: any) => this.settings.set([item], event.target.checked),
           checked: this.settings.get(item),
         }

@@ -83,18 +83,18 @@
     function getButtons() {
         return {
             A: {
-                title: I18n.t(NAME).buttons.A,
-                description: I18n.t(NAME).buttons.A,
+                title: WMEUI.t(NAME).buttons.A,
+                description: WMEUI.t(NAME).buttons.A,
                 shortcut: 'S+1',
             },
             B: {
-                title: I18n.t(NAME).buttons.B,
-                description: I18n.t(NAME).buttons.B,
+                title: WMEUI.t(NAME).buttons.B,
+                description: WMEUI.t(NAME).buttons.B,
                 shortcut: 'S+2',
             },
             C: {
-                title: I18n.t(NAME).buttons.C,
-                description: I18n.t(NAME).buttons.C,
+                title: WMEUI.t(NAME).buttons.C,
+                description: WMEUI.t(NAME).buttons.C,
                 shortcut: 'S+3',
             }
         };
@@ -108,16 +108,16 @@
          * Initial UI elements
          */
         init(buttons) {
-            this.panel = this.helper.createPanel(I18n.t(this.name).title);
+            this.panel = this.helper.createPanel(WMEUI.t(NAME).title);
             this.panel.addButtons(buttons);
-            this.modal = this.helper.createModal(I18n.t(this.name).title);
+            this.modal = this.helper.createModal(WMEUI.t(NAME).title);
             this.modal.addButtons(buttons);
-            this.tab = this.helper.createTab(I18n.t(this.name).title, {
+            this.tab = this.helper.createTab(WMEUI.t(NAME).title, {
                 'sidebar': this.wmeSDK.Sidebar,
                 'icon': 'polygon'
             });
             // Setup buttons set
-            let fieldsetForButtons = this.helper.createFieldset(I18n.t(NAME).buttons.title);
+            let fieldsetForButtons = this.helper.createFieldset(WMEUI.t(NAME).buttons.title);
             fieldsetForButtons.addButtons(buttons);
             for (let n in buttons) {
                 if (buttons[n].shortcut) {
@@ -125,16 +125,16 @@
                 }
             }
             this.tab.addElement(fieldsetForButtons);
-            // Setup custom text
+            // Set up custom text
             this.tab.addText('description', '');
             // Setup options for the script
-            let fieldset = this.helper.createFieldset(I18n.t(NAME).settings.title);
+            let fieldset = this.helper.createFieldset(WMEUI.t(NAME).settings.title);
             let settings = this.settings.get();
             let checkboxes = {};
             for (let item in settings) {
                 if (settings.hasOwnProperty(item)) {
                     checkboxes['settings-' + item] = {
-                        title: I18n.t(NAME).settings[item],
+                        title: WMEUI.t(NAME).settings[item],
                         callback: (event) => this.settings.set([item], event.target.checked),
                         checked: this.settings.get(item),
                     };
