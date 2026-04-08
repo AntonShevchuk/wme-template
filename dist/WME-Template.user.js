@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WME Template
-// @version      0.5.0
+// @version      0.6.0
 // @description  Template of the script for Waze Map Editor
 // @license      MIT License
 // @author       Anton Shevchuk
@@ -109,6 +109,7 @@
             },
         },
     };
+
     /**
      * Default settings — persisted to localStorage via Settings class
      */
@@ -130,16 +131,19 @@
                 title: WMEUI.t(NAME).buttons.simplify,
                 description: WMEUI.t(NAME).buttons.simplify,
                 shortcut: 'S+1',
+                callback: null
             },
             B: {
                 title: WMEUI.t(NAME).buttons.straighten,
                 description: WMEUI.t(NAME).buttons.straighten,
                 shortcut: 'S+2',
+                callback: null
             },
             C: {
                 title: WMEUI.t(NAME).buttons.info,
                 description: WMEUI.t(NAME).buttons.info,
                 shortcut: null,
+                callback: null
             },
         };
     }
@@ -298,10 +302,10 @@
 
     var css_248z = "button.waze-btn.template {\n  background: #f2f4f7;\n  border: 1px solid #ccc;\n  margin: 2px;\n}\n\nbutton.waze-btn.template:hover {\n  background: #ffffff;\n  transition: background-color 100ms linear;\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1), inset 0 0 100px 100px rgba(255, 255, 255, 0.3);\n}\n\nbutton.waze-btn.template:focus {\n  background: #f2f4f7;\n}\n\np.template-info {\n  border-top: 1px solid #ccc;\n  color: #777;\n  font-size: x-small;\n  margin-top: 15px;\n  padding-top: 10px;\n  text-align: center;\n}\n";
 
-    // Register translations and styles before bootstrap
-    WMEUI.addTranslation(NAME, TRANSLATION);
-    WMEUI.addStyle(css_248z);
     $(document).on('bootstrap.wme', () => {
+        // Register translations and styles
+        WMEUI.addTranslation(NAME, TRANSLATION);
+        WMEUI.addStyle(css_248z);
         // Create instance with settings (auto-persisted to localStorage)
         const instance = new Template(NAME, SETTINGS);
         // Get buttons with deferred translations
