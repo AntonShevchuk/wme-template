@@ -14,6 +14,10 @@ button.waze-btn.template:focus {
   background: #f2f4f7;
 }
 
+.wme-ui-modal-content p.wme-ui-helper-text {
+  padding: 8px;
+}
+
 p.template-info {
   border-top: 1px solid #ccc;
   color: #777;
@@ -22,7 +26,7 @@ p.template-info {
   padding-top: 10px;
   text-align: center;
 }
-#sidebar p.template-info-blue {
+#sidebar p.template-blue {
   background-color: #0057B8;
   color: white;
   height: 32px;
@@ -32,7 +36,7 @@ p.template-info {
   margin: 0;
 }
 
-#sidebar p.template-info-yellow {
+#sidebar p.template-yellow {
   background-color: #FFDD00;
   color: black;
   height: 32px;

@@ -3,6 +3,7 @@
   "version": "0.6.0",
   "scripts": {
     "build": "rollup -c",
+    "build:bundled": "rollup -c rollup.config.bundled.mjs",
     "watch": "rollup -c -w"
   },
   "optionalDependencies": {

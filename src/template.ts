@@ -92,6 +92,23 @@ export class Template extends WMEBase {
     )
     this.tab.addElement(fsRanges)
 
+    // Text input and range
+    const fsInputs = this.helper.createFieldset(WMEUI.t(NAME).inputs.title)
+    fsInputs.addInput(
+      'searchQuery',
+      WMEUI.t(NAME).inputs.searchQuery,
+      (event: any) => this.settings.set('searchQuery', event.target.value),
+      this.settings.get('searchQuery')
+    )
+    fsInputs.addRange(
+      'opacity',
+      WMEUI.t(NAME).inputs.opacity,
+      (event: any) => this.settings.set('opacity', Number(event.target.value)),
+      this.settings.get('opacity'),
+      0, 100, 10
+    )
+    this.tab.addElement(fsInputs)
+
     // Dynamic status text (can be updated with setText)
     this.statusText = this.tab.addText('status', 'Ready')
 
@@ -147,6 +164,16 @@ export class Template extends WMEBase {
 
     if (this.canEditVenue(model)) {
       element.prepend(this.panel.html())
+
+      // --- Modal example: show venue details in a modal window ---
+      const modal = this.helper.createModal(WMEUI.t(NAME).title)
+      modal.addText('venue-name', 'Name: <strong>' + (model.name || 'No name') + '</strong>')
+      modal.addText('venue-id', 'ID: ' + model.id)
+      modal.addText('venue-categories', 'Categories: ' + (model.categories.join(', ') || 'none'))
+      modal.addButton('close', 'Close', 'Close modal', () => {
+        modal.remove()
+      })
+      modal.inject()
     }
   }
 

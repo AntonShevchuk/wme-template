@@ -7,4 +7,6 @@ export const SETTINGS = {
   debugMode: false,
   tolerance: 5,
   radius: 200,
+  searchQuery: '',
+  opacity: 50,
 }

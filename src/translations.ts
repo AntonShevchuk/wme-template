@@ -24,6 +24,11 @@ export const TRANSLATION = {
       tolerance: 'Tolerance',
       radius: 'Search radius (m)',
     },
+    inputs: {
+      title: 'Inputs',
+      searchQuery: 'Search query',
+      opacity: 'Opacity',
+    },
     layers: {
       title: 'Layers',
       highlights: 'Highlight segments',
@@ -50,6 +55,11 @@ export const TRANSLATION = {
       tolerance: 'Допуск',
       radius: 'Радіус пошуку (м)',
     },
+    inputs: {
+      title: 'Введення',
+      searchQuery: 'Пошуковий запит',
+      opacity: 'Прозорість',
+    },
     layers: {
       title: 'Шари',
       highlights: 'Підсвітка сегментів',
@@ -75,6 +85,11 @@ export const TRANSLATION = {
       title: 'Параметры',
       tolerance: 'Допуск',
       radius: 'Радиус поиска (м)',
+    },
+    inputs: {
+      title: 'Ввод',
+      searchQuery: 'Поисковый запрос',
+      opacity: 'Прозрачность',
     },
     layers: {
       title: 'Слои',

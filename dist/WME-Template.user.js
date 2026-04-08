@@ -15,7 +15,7 @@
 // @require      https://update.greasyfork.org/scripts/571719/1793257/GeoUtils.js
 // @require      https://update.greasyfork.org/scripts/450160/1792042/WME-Bootstrap.js
 // @require      https://update.greasyfork.org/scripts/450221/1793261/WME-Base.js
-// @require      https://update.greasyfork.org/scripts/450320/1793251/WME-UI.js
+// @require      https://update.greasyfork.org/scripts/450320/1793862/WME-UI.js
 // ==/UserScript==
 
 (function () {
@@ -52,6 +52,11 @@
                 tolerance: 'Tolerance',
                 radius: 'Search radius (m)',
             },
+            inputs: {
+                title: 'Inputs',
+                searchQuery: 'Search query',
+                opacity: 'Opacity',
+            },
             layers: {
                 title: 'Layers',
                 highlights: 'Highlight segments',
@@ -77,6 +82,11 @@
                 title: 'Параметри',
                 tolerance: 'Допуск',
                 radius: 'Радіус пошуку (м)',
+            },
+            inputs: {
+                title: 'Введення',
+                searchQuery: 'Пошуковий запит',
+                opacity: 'Прозорість',
             },
             layers: {
                 title: 'Шари',
@@ -104,6 +114,11 @@
                 tolerance: 'Допуск',
                 radius: 'Радиус поиска (м)',
             },
+            inputs: {
+                title: 'Ввод',
+                searchQuery: 'Поисковый запрос',
+                opacity: 'Прозрачность',
+            },
             layers: {
                 title: 'Слои',
                 highlights: 'Подсветка сегментов',
@@ -120,6 +135,8 @@
         debugMode: false,
         tolerance: 5,
         radius: 200,
+        searchQuery: '',
+        opacity: 50,
     };
 
     /**
@@ -215,6 +232,11 @@
             fsRanges.addNumber('tolerance', WMEUI.t(NAME).ranges.tolerance, (event) => this.settings.set('tolerance', Number(event.target.value)), this.settings.get('tolerance'), 1, 50, 1);
             fsRanges.addNumber('radius', WMEUI.t(NAME).ranges.radius, (event) => this.settings.set('radius', Number(event.target.value)), this.settings.get('radius'), 50, 1000, 50);
             this.tab.addElement(fsRanges);
+            // Text input and range
+            const fsInputs = this.helper.createFieldset(WMEUI.t(NAME).inputs.title);
+            fsInputs.addInput('searchQuery', WMEUI.t(NAME).inputs.searchQuery, (event) => this.settings.set('searchQuery', event.target.value), this.settings.get('searchQuery'));
+            fsInputs.addRange('opacity', WMEUI.t(NAME).inputs.opacity, (event) => this.settings.set('opacity', Number(event.target.value)), this.settings.get('opacity'), 0, 100, 10);
+            this.tab.addElement(fsInputs);
             // Dynamic status text (can be updated with setText)
             this.statusText = this.tab.addText('status', 'Ready');
             // Script info footer
@@ -255,6 +277,15 @@
             this.statusText.setText('Venue: ' + model.name);
             if (this.canEditVenue(model)) {
                 element.prepend(this.panel.html());
+                // --- Modal example: show venue details in a modal window ---
+                const modal = this.helper.createModal(WMEUI.t(NAME).title);
+                modal.addText('venue-name', 'Name: <strong>' + (model.name || 'No name') + '</strong>');
+                modal.addText('venue-id', 'ID: ' + model.id);
+                modal.addText('venue-categories', 'Categories: ' + (model.categories.join(', ') || 'none'));
+                modal.addButton('close', 'Close', 'Close modal', () => {
+                    modal.remove();
+                });
+                modal.inject();
             }
         }
         onVenues(event, element, models) {
@@ -301,7 +332,7 @@
         }
     }
 
-    var css_248z = "button.waze-btn.template {\n  background: #f2f4f7;\n  border: 1px solid #ccc;\n  margin: 2px;\n}\n\nbutton.waze-btn.template:hover {\n  background: #ffffff;\n  transition: background-color 100ms linear;\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1), inset 0 0 100px 100px rgba(255, 255, 255, 0.3);\n}\n\nbutton.waze-btn.template:focus {\n  background: #f2f4f7;\n}\n\np.template-info {\n  border-top: 1px solid #ccc;\n  color: #777;\n  font-size: x-small;\n  margin-top: 15px;\n  padding-top: 10px;\n  text-align: center;\n}\n#sidebar p.template-info-blue {\n  background-color: #0057B8;\n  color: white;\n  height: 32px;\n  text-align: center;\n  line-height: 32px;\n  font-size: 24px;\n  margin: 0;\n}\n\n#sidebar p.template-info-yellow {\n  background-color: #FFDD00;\n  color: black;\n  height: 32px;\n  text-align: center;\n  line-height: 32px;\n  font-size: 24px;\n  margin: 0;\n}\n";
+    var css_248z = "button.waze-btn.template {\n  background: #f2f4f7;\n  border: 1px solid #ccc;\n  margin: 2px;\n}\n\nbutton.waze-btn.template:hover {\n  background: #ffffff;\n  transition: background-color 100ms linear;\n  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1), inset 0 0 100px 100px rgba(255, 255, 255, 0.3);\n}\n\nbutton.waze-btn.template:focus {\n  background: #f2f4f7;\n}\n\n.wme-ui-modal-content p.wme-ui-helper-text {\n  padding: 8px;\n}\n\np.template-info {\n  border-top: 1px solid #ccc;\n  color: #777;\n  font-size: x-small;\n  margin-top: 15px;\n  padding-top: 10px;\n  text-align: center;\n}\n#sidebar p.template-blue {\n  background-color: #0057B8;\n  color: white;\n  height: 32px;\n  text-align: center;\n  line-height: 32px;\n  font-size: 24px;\n  margin: 0;\n}\n\n#sidebar p.template-yellow {\n  background-color: #FFDD00;\n  color: black;\n  height: 32px;\n  text-align: center;\n  line-height: 32px;\n  font-size: 24px;\n  margin: 0;\n}\n";
 
     $(document).on('bootstrap.wme', () => {
         // Register translations and styles
