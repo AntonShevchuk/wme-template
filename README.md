@@ -1,128 +1,151 @@
 # WME Template
-Template of the GreasyFork script for Waze Map Editor
+
+Template for Waze Map Editor userscripts. TypeScript source with Rollup build pipeline.
 
 ## Libraries
 
-* [Common Utils](https://github.com/AntonShevchuk/common.utils) – contains `SimpleCache`, `Settings` and `Tools` classes
-* [WME-Bootstrap](https://github.com/AntonShevchuk/wme-bootstrap) - trigger `jQuery.Event` for all major events on the page
-* [WME](https://github.com/AntonShevchuk/wme) - contains `WME` class-helper
-* [WME-Base](https://github.com/AntonShevchuk/wme-base) - contains `WMEBase` – parent class for WME scripts
-* [WME-UI](https://github.com/AntonShevchuk/wme-ui) - contains set of the classes to simplify build UI for WME scripts
+* [Common Utils](https://github.com/AntonShevchuk/common.utils) - `Container`, `SimpleCache`, `Settings`, `Tools`
+* [Geo Utils](https://github.com/AntonShevchuk/geo.utils) - `GeoUtils` static class for geospatial calculations
+* [WME-Bootstrap](https://github.com/AntonShevchuk/wme-bootstrap) - triggers `jQuery.Event` for all major WME events
+* [WME-Base](https://github.com/AntonShevchuk/wme-base) - `WMEBase` parent class with event handlers, shortcuts, permissions
+* [WME-UI](https://github.com/AntonShevchuk/wme-ui) - UI helpers: Tab, Panel, Modal, Fieldset, controls
 
+## Project Structure
 
-### Require libraries
-
-⚠️ Actual version of libraries sees on the [Greasy Fork site](https://greasyfork.org/en/users/227648-anton-shevchuk)
-
-```javascript
-// @require https://update.greasyfork.org/scripts/389765/1785927/CommonUtils.js
-// @require https://update.greasyfork.org/scripts/450160/1785943/WME-Bootstrap.js
-// @require https://update.greasyfork.org/scripts/450221/1785960/WME-Base.js
-// @require https://update.greasyfork.org/scripts/450320/1785964/WME-UI.js
+```
+src/
+  name.ts          # script name constant (unique identifier)
+  translations.ts  # translations (en, uk, ru) accessed via WMEUI.t(NAME)
+  settings.ts      # default settings (persisted to localStorage)
+  buttons.ts       # button definitions with shortcuts
+  style.css        # plain CSS (imported as string)
+  template.ts      # main class extending WMEBase
+  index.ts         # bootstrap: register translations/styles, init
+  globals.d.ts     # type declarations for WME libraries
+  meta.ts          # userscript header
 ```
 
 ## Development
 
 ```bash
 npm install
-npm run build    # build once
-npm run watch    # rebuild on changes
+npm run build           # build dist/WME-Template.user.js
+npm run build:bundled   # build all-in-one version (libraries included)
+npm run watch           # rebuild on changes
 ```
 
-Source is in `src/` (TypeScript), output is `WME-Template.user.js` (root directory).
+## Demonstrated Features
 
-## Recommended structure
+### WME-Base
 
-```javascript
-(function () {
-  'use strict'
+- **Event handlers**: `onSegment`, `onSegments`, `onVenue`, `onVenues`, `onNode`, `onNodes`, `onPoint`, `onPlace`, `onResidential`, `onNone`
+- **Shortcuts**: `createShortcut(id, description, keys, callback)`
+- **Permissions**: `canEditSegment(model)`, `canEditVenue(model)`
+- **Selection**: `getSelection()`, `getSelectedSegments()`, `getSelectedVenues()`
+- **Logging**: `log()`, `warn()`, `error()`, `group()`, `groupEnd()`
 
-  // Script name, uses as unique index
-  const NAME = 'Example'
+### WME-UI
 
-  // Translations, english section is requiried
-  const TRANSLATION = {
-    en: {},
-    ua: {}
-  }
+- **Tab**: sidebar tab with icon - `helper.createTab(title, { sidebar, icon })`
+- **Panel**: inline panel injected into edit sidebar - `helper.createPanel(title)`
+- **Modal**: floating overlay with close button - `helper.createModal(title)`
+- **Fieldset**: collapsible group - `helper.createFieldset(title)`
+- **Controls**: `addButton`, `addButtons`, `addCheckbox`, `addCheckboxes`, `addNumber`, `addInput`, `addRange`, `addText`, `addDiv`
+- **Dynamic updates**: `setText()` on text elements, `remove()` on any element
+- **Translations**: `WMEUI.addTranslation(NAME, data)`, `WMEUI.t(NAME)`
+- **Styles**: `WMEUI.addStyle(css)`
 
-  // Custom style will be injected
-  const STYLE = 'button.waze-btn.template { border: 1px solid #ccc; } '
+### CommonUtils
 
-  WMEUI.addTranslation(NAME, TRANSLATION)
-  WMEUI.addStyle(STYLE)
+- **Settings**: `new Settings(name, defaults)` with `get()`, `set()`, `save()`, `load()`
 
-  // Custom buttons, you can inject it to sidebar or modal window
-  const BUTTONS = {
+## Quick Start
+
+### 1. Define name, translations, and settings
+
+```typescript
+// name.ts
+export const NAME = 'MyScript'
+
+// translations.ts - english is required
+export const TRANSLATION = {
+  en: { title: 'My Script', buttons: { run: 'Run' } },
+  uk: { title: 'Мій скрипт', buttons: { run: 'Запуск' } },
+}
+
+// settings.ts - persisted to localStorage
+export const SETTINGS = { enabled: true, threshold: 10 }
+```
+
+### 2. Define buttons
+
+```typescript
+// buttons.ts
+export function getButtons () {
+  return {
     A: {
-      title: I18n.t(NAME).buttons.A, // use translation for the button title
-      description: I18n.t(NAME).buttons.A, // use translation for the button description
-      shortcut: 'S+A', // setup shortcut
-      callback: () => console.log('Button A') // setup button here or later
+      title: WMEUI.t(NAME).buttons.run,
+      description: WMEUI.t(NAME).buttons.run,
+      shortcut: 'S+1',
+      callback: null  // wired in index.ts
     },
   }
+}
+```
 
-  // Create default settings, if needed
-  const SETTINGS = {
-    A: true,
+### 3. Create the main class
+
+```typescript
+// my-script.ts
+export class MyScript extends WMEBase {
+  panel: WMEUIHelperPanel
+  tab: WMEUIHelperTab
+
+  init (buttons: Record<string, any>) {
+    this.panel = this.helper.createPanel(WMEUI.t(NAME).title)
+    this.panel.addButtons(buttons)
+
+    this.tab = this.helper.createTab(WMEUI.t(NAME).title, {
+      sidebar: this.wmeSDK.Sidebar,
+      icon: 'polygon',
+    })
+    this.tab.inject()
   }
 
-  // Example
-  class Example extends WMEBase {
-    constructor (name, settings) {
-      super(name)
-      // setup settings
-      this.settings = new Settings(name, settings)
-    }
-    
-    /**
-     * Handler for window `beforeunload` event
-     * @param {jQuery.Event} event
-     * @return {Null}
-     */
-    onBeforeUnload (event) {
-      // save settings
-      this.settings.save()
-    }
-
-    /**
-     * Initial UI elements
-     * @param {Object} buttons
-     */
-    init (buttons) {
-      /** @type {WMEUIHelper} */
-      this.helper = new WMEUIHelper(this.name)
-
-      /** @type {WMEUIHelperPanel} */
-      this.panel = this.helper.createPanel(I18n.t(this.name).title)
-      this.panel.addButtons(buttons)
-    }
-
-    /**
-     * Handler for `point.wme` event
-     * @param {jQuery.Event} event
-     * @param {HTMLElement} element
-     * @param {W.model} model
-     * @return {void}
-     */
-    onPoint (event, element, model) {
-      this.log('Selected a point')
-      // Inject custom HTML to the current sidebar
-      // It can be #node-edit-general or #segment-edit-general or #venue-edit-general or #mergeVenuesCollection
+  onSegment (event: JQuery.Event, element: HTMLElement, model: Segment) {
+    if (this.canEditSegment(model)) {
       element.prepend(this.panel.html())
     }
   }
+}
+```
 
-  $(document).on('bootstrap.wme', () => {
-    let Instance = new Example(NAME, SETTINGS)
-    Instance.init(BUTTONS)
-  })
-})();
+### 4. Bootstrap
+
+```typescript
+// index.ts
+$(document).on('bootstrap.wme', () => {
+  WMEUI.addTranslation(NAME, TRANSLATION)
+  WMEUI.addStyle(css)
+
+  const instance = new MyScript(NAME, SETTINGS)
+  const buttons = getButtons()
+  buttons.A.callback = () => instance.onRun()
+  instance.init(buttons)
+})
+```
+
+## @require Libraries
+
+```javascript
+// @require      https://update.greasyfork.org/scripts/389765/1793258/CommonUtils.js
+// @require      https://update.greasyfork.org/scripts/571719/1793257/GeoUtils.js
+// @require      https://update.greasyfork.org/scripts/450160/1792042/WME-Bootstrap.js
+// @require      https://update.greasyfork.org/scripts/450221/1793261/WME-Base.js
+// @require      https://update.greasyfork.org/scripts/450320/1794414/WME-UI.js
 ```
 
 ## Links
 
 Author homepage: https://anton.shevchuk.name/  
-Author pet projects: https://hohli.com/  
-Support author: https://donate.hohli.com/  
 Script homepage: https://github.com/AntonShevchuk/wme-template  

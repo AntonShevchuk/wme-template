@@ -192,8 +192,8 @@
          * @returns Bearing in degrees (0-360, clockwise from north)
          *
          * @example
-         * GeoUtils.getBearing([0, 0], [0, 1])   // 0   (due north)
-         * GeoUtils.getBearing([0, 0], [1, 0])   // 90  (due east)
+         * GeoUtils.getBearing([0, 0], [0, 1]) // 0 (due north)
+         * GeoUtils.getBearing([0, 0], [1, 0]) // 90 (due east)
          */
         static getBearing(pA, pB) {
             const latA = GeoUtils._toRadians(pA[1]);
@@ -272,7 +272,7 @@
          * @returns Destination point [lon, lat]
          *
          * @example
-         * // Move 100km north from equator
+         * // Move 100km north from the equator
          * const dist = 100000 / 6371000; // convert meters to radians
          * GeoUtils.getDestination([0, 0], 0, dist) // [0, ~0.9]
          */
@@ -340,7 +340,7 @@
          * Uses Napier's Rules for right spherical triangles.
          *
          * @param pA - First point of the line [lon, lat]
-         * @param pB - Second point of the line [lon, lat] (defines angle at A)
+         * @param pB - Second point of the line [lon, lat] (defines the angle at A)
          * @param pC - Point to project [lon, lat]
          * @returns Coordinates of D [lon, lat] — the perpendicular foot
          *
@@ -893,6 +893,7 @@
             label.innerHTML = unsafePolicy.createHTML(this.title);
             let container = document.createElement('div');
             container.className = 'wme-ui-controls-container controls-container';
+            container.append(input);
             container.append(label);
             // Add <output> element for range inputs to display current value
             if (this.attributes.type === 'range') {
@@ -909,7 +910,6 @@
                 };
                 container.append(output);
             }
-            container.append(input);
             return container;
         }
     }
